@@ -3,17 +3,17 @@ pipeline {
     stages {
         stage('Compile') {
             steps {
-                sh 'mvn clean package -DskipTests=true'
+                sh '/usr/local/bin/mvn clean package -DskipTests=true'
             }
         }
         stage('Unit Tests') {
             steps {
-                sh 'mvn surefire:test'
+                sh '/usr/local/bin/mvn surefire:test'
             }
         }
          stage('Integration Tests') {
             steps {
-                sh 'mvn failsafe:integration-test'
+                sh '/usr/local/bin/mvn failsafe:integration-test'
             }
         }
     }
@@ -21,8 +21,8 @@ pipeline {
         always {
             junit 'target/surefire-reports/TEST-*.xml'
         }
-        failure {
-            mail to: 'kiwaczki@gmail.com', subject: 'The Pipeline failed :(', body:'The Pipeline failed :('
-        }
+       // failure {
+            //mail to: 'kiwaczki@gmail.com', subject: 'The Pipeline failed :(', body:'The Pipeline failed :('
+       // }
     }
 }
